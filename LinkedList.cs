@@ -56,6 +56,31 @@ namespace ConsoleApp4
                 }        
             }
 
+            public void DeleteAtIndex(int deleteIndex)
+            {
+                var tempValue = Head;
+                var beforeDeleted = tempValue;
+                var afterDeleted = tempValue.next;
+                int currentIndex = 0;
+
+                if(deleteIndex < Length -1)
+                {
+                    while(currentIndex < deleteIndex)
+                    {
+                        beforeDeleted = tempValue;
+                        tempValue = tempValue.next;
+                        afterDeleted = tempValue.next;
+                        currentIndex++;
+                    }
+                    tempValue = null;
+                    beforeDeleted.next = afterDeleted;
+                }
+                else
+                {
+                    System.Console.WriteLine("Index to delete was not found. Try ToString() to verify the Index.");
+                }
+            }
+
             public override string ToString()
             {
                 string toReturn = "(";
@@ -91,7 +116,7 @@ namespace ConsoleApp4
     {
         static void Main(string[] args)
         {
-         
+          
         }
     }
 }
