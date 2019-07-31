@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp4
 {
-    class Node<T>
+        class Node<T>
         {
             public T value;
             public Node<T> next;
@@ -16,16 +17,125 @@ namespace ConsoleApp4
                 next = null;
             }
         }
-        static class LinkedList<T>
+         class  LinkedList<T>
         {
-            public static Node<T> Head;
+            public   Node<T> Head;
+            public int Length = 0;
 
-            public static void Prepend( T prependValue)
+            public void Prepend(T prependValue)
             {
                 Node<T> PrependThis = new Node<T>(prependValue);
                 PrependThis.next = Head;
                 Head = PrependThis;
-                
+                Length++;
+            }
+            
+            public void Append(T appendValue)
+            {
+                var tempValue = Head;
+                var appendHere = tempValue;
+                Node<T> AppendThis = new Node<T>(appendValue);
+                if(Length == 0)
+                {
+                    AppendThis.next = Head;
+                    Head = AppendThis;
+                    Length++;
+                    return;
+                }
+                if (Length > 0)
+                {
+                    while(tempValue != null)
+                    {
+                        if(tempValue.next == null)
+                        {
+                            tempValue.next = AppendThis;
+                            Length ++;
+                            break;
+                        } 
+                        tempValue = tempValue.next;
+                    }
+                }        
+            }
+
+            public void DeleteAtIndex(int deleteIndex)
+            {
+                var tempValue = Head;
+                var beforeDeleted = tempValue;
+                var afterDeleted = tempValue.next;
+                int currentIndex = 0;
+
+                if(deleteIndex < Length -1)
+                {
+                    while(currentIndex < deleteIndex)
+                    {
+                        beforeDeleted = tempValue;
+                        tempValue = tempValue.next;
+                        afterDeleted = tempValue.next;
+                        currentIndex++;
+                    }
+                    tempValue = null;
+                    beforeDeleted.next = afterDeleted;
+                }
+                else
+                {
+                    System.Console.WriteLine("Index to delete was not found. Try ToString() to verify the Index.");
+                }
+            }
+
+            public override string ToString()
+            {
+                string toReturn = "(";
+                var tempValue = Head;
+                var tempNext = tempValue.next;
+                while(tempValue != null)
+                {
+                    tempNext = tempValue.next;
+                    toReturn += tempValue.value;
+                    if(tempNext != null)
+                    {
+                        toReturn += ", ";
+                    }
+                    tempValue = tempValue.next; 
+                }
+                toReturn += ")";
+                System.Console.WriteLine(toReturn);
+                return toReturn;
+            }
+
+            public void Traverse()
+            {
+                var tempValue = Head;
+                while(tempValue != null)
+                {
+                    System.Console.WriteLine(tempValue.value);
+                    tempValue = tempValue.next; 
+                }
+            }
+
+            private object GetIndexValue(int _value)
+            {
+                var tempValue = Head;
+                if(_value >= Length)
+                {
+                    System.Console.WriteLine("The current LinkedList does not contain enough values to use this index");
+                    return tempValue;
+                }
+                for (int i = 0; i < Length;i++)
+                {
+                    if( i == _value)
+                    {
+                        return tempValue.value;
+                    }
+                    tempValue = tempValue.next;
+                }
+                return tempValue;
+            }
+            public object this[int _index]
+            {
+                get
+                {
+                return (GetIndexValue(_index));
+                }
             }
         }
         
@@ -33,7 +143,7 @@ namespace ConsoleApp4
     {
         static void Main(string[] args)
         {
-            
+          
         }
     }
 }
