@@ -22,6 +22,26 @@ namespace ConsoleApp4
 
             public Node<T> Head;
             public int Length = 0;
+
+            public override string ToString()
+            {
+                string toReturn = "(";
+                var tempValue = Head;
+                var tempNext = tempValue.next;
+                while(tempValue != null)
+                {
+                    tempNext = tempValue.next;
+                    toReturn += tempValue.value;
+                    if(tempNext != null)
+                    {
+                        toReturn += ", ";
+                    }
+                    tempValue = tempValue.next; 
+                }
+                toReturn += ")";
+                System.Console.WriteLine(toReturn);
+                return toReturn;
+            }
         }
         
     class Program
