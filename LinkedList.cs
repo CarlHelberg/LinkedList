@@ -22,7 +22,16 @@ namespace ConsoleApp4
 
             public Node<T> Head;
             public int Length = 0;
+            
+            public  void Prepend( T prependValue)
+            {
+                Node<T> PrependThis = new Node<T>(prependValue);
+                PrependThis.next = Head;
+                Head = PrependThis;
+                Length++;
+            }
         }
+        
         
     class Program
     {
