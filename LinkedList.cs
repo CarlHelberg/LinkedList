@@ -22,6 +22,32 @@ namespace ConsoleApp4
 
             public Node<T> Head;
             public int Length = 0;
+
+            public bool Append(T _value)
+            {
+                var appendThis = new Node<T>(_value);
+                var tempValue = Head;
+                if(tempValue == null)
+                {
+                    Head = appendThis;
+                    Length ++;
+                    return true;
+                }
+                else
+                {
+                    while(tempValue != null)
+                    {
+                        if(tempValue.next == null)
+                        {
+                            tempValue.next = appendThis;
+                            Length++;
+                            return true;
+                        }
+                        tempValue = tempValue.next;
+                    }
+                }
+                return false;
+            }
         }
         
     class Program
